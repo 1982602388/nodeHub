@@ -1,10 +1,14 @@
-// const { verifyUser } =require('../middleware/users.middleware') 
-const Router = require('koa-router')
-const { create } =require('../controller/user.controller')
+const Router = require('koa-router');
+const {
+  create
+} = require('../controller/user.controller');
+const {
+  verifyUser,
+  handlePassword
+} = require('../middleware/user.middleware');
 
-const useRouter = new Router({ prefix: '/users' })
-useRouter.post('/', create)
-// useRouter.post('/',verifyUser, create)
+const userRouter = new Router({prefix: '/users'});
 
+userRouter.post('/', verifyUser, handlePassword, create);
 
-module.exports = useRouter
+module.exports = userRouter;
